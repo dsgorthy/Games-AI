@@ -50,7 +50,7 @@ class SIM_board():
 
 
 		# Return point1, point2
-		#return random.choice(board.possible_nodes), random.choice(board.possible_nodes)
+		return random.choice(board.possible_nodes), random.choice(board.possible_nodes)
 
 
 def lists_overlap(a, b):
