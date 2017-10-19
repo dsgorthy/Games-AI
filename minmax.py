@@ -40,14 +40,6 @@ class Node(object):
 			self.red_loss += new_child.red_loss
 			self.blue_loss += new_child.blue_loss
 
-		#print("This node:")
-		#print("Red State:", self.rs)
-		#print("Blue State:", self.bs)
-		#print("Red Loss:", self.red_loss)
-		#print("Blue Loss", self.blue_loss)
-		#print(" ")
-		#print(" ")
-
 
 	def get_possible_edges(self):
 		edges = []
