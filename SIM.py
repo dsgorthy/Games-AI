@@ -106,6 +106,7 @@ class SIM_board():
 				return n1, p
 
 		# INSERT DECISION TREE HERE
+		
 
 		# Return point1, point2
 		return not_loss[0]
