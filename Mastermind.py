@@ -2,6 +2,7 @@
 class Mastermind():
 
 	possible_colors = ["R", "B", "O", "W"]
+	valid_response_letters = ["X", "O"]
 
 	def __init__(self, code):
 		self.code = code
@@ -45,7 +46,6 @@ class Mastermind():
 
 		return (o_found == num_o)
 
-
 	def eliminate(self, guess, result):
 		possibilities_to_remove = []
 		num_x = result.count('X')
@@ -60,11 +60,17 @@ class Mastermind():
 		for poss in possibilities_to_remove:
 			self.possibilities.remove(poss)
 
+	def valid_user_response(self, response):
+		for letter in response:
+			if (letter not in self.valid_response_letters):
+				return False
+		return (len(response) <= 3)
+
 
 if __name__ == "__main__":
 
 	print("Possible colors: R, B, O, W")
-	code = input("Enter board in the format CCC: ")
+	code = input("Enter board in the format XXX: ")
 
 	board = Mastermind(code)
 
@@ -76,10 +82,18 @@ if __name__ == "__main__":
 	while (len(board.possibilities) > 0):
 		guess = board.possibilities.pop(0)
 		print("I'm guessing", guess)
-		result = input("How'd I do? ")
+
+		valid_response = False
+		while not valid_response:
+			result = input("How'd I do? ")
+			valid_response = board.valid_user_response(result)
 
 		if (result == "XXX"):
-			print("Correctly guessed:", guess)
+			print("Double checking...")
+			if (guess == code):
+				print("Correctly guessed:", guess)
+			else:
+				print("The codes",code,"and",guess,"do not match.")
 			exit()
 
 		board.eliminate(guess, result)
