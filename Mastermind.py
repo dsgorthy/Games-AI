@@ -2,12 +2,11 @@
 class Mastermind():
 
 	possible_colors = ["R", "B", "O", "W"]
-	# ["R", "B", "O"] : XXO
-	guess_dict = {}
 
 	def __init__(self, code):
 		self.code = code
 		self.possibilities = []
+		# Generate all possibilities
 		for l1 in self.possible_colors:
 			for l2 in self.possible_colors:
 				for l3 in self.possible_colors:
@@ -49,14 +48,15 @@ class Mastermind():
 
 	def eliminate(self, guess, result):
 		possibilities_to_remove = []
-		self.guess_dict[guess] = result
 		num_x = result.count('X')
 		num_o = len(result) - num_x
 
+		# Generate a list of possibilities to remove
 		for possible_code in self.possibilities:
 			if not (self.valid_code(guess, possible_code, num_x, num_o)):
 				possibilities_to_remove.append(possible_code)
 
+		# Remove the invalid possibilities
 		for poss in possibilities_to_remove:
 			self.possibilities.remove(poss)
 
