@@ -12,6 +12,7 @@ class Node(object):
 		self.computer_loss = 0
 		self.player_loss = 0
 
+		# Create starting node for the tree based on the previous move
 		if (which == "comp"):
 			self.cs[edge_to_add[0]].append(edge_to_add[1])
 			self.cs[edge_to_add[1]].append(edge_to_add[0])
@@ -32,6 +33,7 @@ class Node(object):
 		if (depth == 0):
 			return
 
+		# Add children for each possible move
 		edges = self.get_possible_edges()
 		for edge in edges:
 			new_child = Node(deepcopy(self.cs), deepcopy(self.ps), self.next_player, edge, depth-1)
@@ -58,12 +60,8 @@ class Node(object):
 
 class SIM_board():
 
-	#computer_nodes = {"A":[], "B":[], "C":[], "D":[], "E":[]}
-	#player_nodes = {"A":[], "B":[], "C":[], "D":[], "E":[]}
 	computer_loss_edges = []
 	player_loss_edges = []
-
-	#possible_nodes = ["A", "B", "C", "D", "E", "F", "G", "H"]
 	computer_nodes = {"A":[], "B":[], "C":[], "D":[], "E":[], "F":[], "G":[], "H":[]}
 	player_nodes = {"A":[], "B":[], "C":[], "D":[], "E":[], "F":[], "G":[], "H":[]}
 
@@ -176,7 +174,7 @@ class SIM_board():
 
 		return best_move
 
-
+# Loss is defined as two lists have an overlapping edge
 def lists_overlap(a, b):
 	sb = set(b)
 	return any(el in sb for el in a)
@@ -193,7 +191,7 @@ if __name__ == "__main__":
 
 	color = input("Are you playing Red? (Y/N): ")
 
-	# player chose red, go first
+	# Player chose red, go first
 	if (color == "Y"):
 		truth = False
 
@@ -213,6 +211,7 @@ if __name__ == "__main__":
 		print("The computer entered the move ", point1, ", ", point2)
 		moves += 1
 
+		# Check for computer loss
 		if (board.player_lost("comp", point1, point2)):
 			print("The computer lost!")
 			exit()
@@ -225,6 +224,7 @@ if __name__ == "__main__":
 			entered_valid_move = board.move("player", point1, point2)
 		moves += 1
 
+		# Check for player loss
 		if (board.player_lost("player", point1, point2)):
 			print("The player lost!")
 			exit()
